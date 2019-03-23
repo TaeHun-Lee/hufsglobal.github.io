@@ -213,9 +213,7 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     		<input type="submit" value="Count!">
     </form>
 {% endhighlight %}
-
-![](../../images/_2019-03-20__2-3d71e459-aeb7-4b68-ae1e-d50f40766959.13.44.png)
-
+![screenshot](../../images/_2019-03-20__2-3d71e459-aeb7-4b68-ae1e-d50f40766959.13.44.png)
 이렇게 뜬다면 성공! 아직은 어떠한 기능도 작동하지 않습니다. 
 
 이제 ABOUT을 누르면 about.html로 넘어가게 기능을 만들어 보겠습니다. 매우 쉽습니다.
