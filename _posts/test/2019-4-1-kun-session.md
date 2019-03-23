@@ -204,7 +204,7 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
 앞서 간략하게 이름만 적어 놓았던 ".html" 파일들을 이제 제대로 한번 만들어 볼 시간입니다. 
 
 먼저 home.html 페이지에는 about으로 연결되는 링크와 텍스트의 길이를 확인할 입력창이 필요합니다. 코드는 아래와 같습니다. 
-{%raw%}
+
 {% highlight html %}
     <a href=""> ABOUT </a>
     
@@ -214,7 +214,7 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     		<input type="submit" value="Count!">
     </form>
 {% endhighlight %}
-{%endraw%}
+
 ![screenshot](../../images/_2019-03-20__2-3d71e459-aeb7-4b68-ae1e-d50f40766959.13.44.png)
 이렇게 뜬다면 성공! 아직은 어떠한 기능도 작동하지 않습니다. 
 
