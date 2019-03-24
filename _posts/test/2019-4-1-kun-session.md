@@ -49,7 +49,8 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
 가장 먼저 Django 프로젝트를 만들어줘야 합니다.
 
 → **가상 환경에 접속하는게 항상 먼저 이루어져야 합니다.** 
-    {% highlight html %}
+    {% raw %}
+    {% highlight python %}
     #myvenv라는 이름을 가진 가상환경을 현재 디렉토리에 생성하기
     $ python3 -m venv myvenv
     
@@ -62,13 +63,17 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
     #아래와같이 나오기 시작하면 가상환경 접속 성공!
     (myvenv)$ 
     {% endhighlight %}
+    {%endraw%}
 **→ 프로젝트 만들기**
-    {% highlight html %}
+    {%raw%}
+    {% highlight python%}
     #Firstproject라는 이름을 가진 장고 프로젝트를 생성
     $ django-admin startproject Firstproject
     {% endhighlight %}
+    {%endraw%}
 **→ 프로젝트 내에 앱 만들기** 
-    {% highlight html %}
+    {%raw%}
+    {% highlight python %}
     #먼저 Firstproject 디렉토리로 이동해야합니다
     $ cd Firstprject 
     
@@ -77,6 +82,7 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
     #그 후 앱을 생성합니다.
     $ python manage.py startapp wordcount
     {% endhighlight %}
+    {%endraw%}
 **아래와 같이 나온다면 성공!**
 
 ![](../../images/_2019-03-18__11-26618f3e-8ec7-49e8-9db7-f1b9c92cc863.27.40.png)
@@ -88,6 +94,8 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
 먼저 만들어진 wordcount 앱의 존재를 프로젝트에 알려줘야 앱을 프로젝트 내에서 사용할 수 있게 됩니다. 
 
 Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니다. 조금만 내려보시면 아래와 같이 설치된 앱들에 대한 정보가 나와 있을 것 입니다. 
+{%raw%}
+{% highlight python %}
 
     # Application definition
     
@@ -99,9 +107,11 @@ Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니�
         'django.contrib.messages',
         'django.contrib.staticfiles',
     ]
-
+{% endhighlight %}
+{%endraw%}
 가장 아래에 아래와 같이 wordcount 앱에 대한 정보를 입력해주면 됩니다. 
-
+{%raw%}
+{% highlight python %}
     # Application definition
     
     INSTALLED_APPS = [
@@ -113,7 +123,8 @@ Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니�
         'django.contrib.staticfiles',
     		'wordcount.apps.WordcountConfig',
     ]
-
+{% endhighlight %}
+{%endraw%}
 자, 여기서 잠깐 Template가 뭐였는지 한번 복습하고 갑시다. Template는 Django가 사용하는 MTV 패턴에서 T에 해당하는 Template를 말합니다. 더 통상적으로 사용되는 MVC 패턴에서의 V를 뜻하는 View, 즉 사용자에게 보여주는 사이트 화면을 말하죠. 자 그럼 이 사실을 잊지 말고 Template를 한번 만들어 봅시다. 
 
 ![](../../images/_2019-03-18__11-947cc4b3-733e-4e20-89a5-5d6f410f2e95.48.15.png)
@@ -123,13 +134,15 @@ Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니�
 이러한 3개의 템플렛은 2가지 속성으로 구분 할 수 있습니다. "home"과 "about"은 항상 같은 페이지를 보여주는 반면 "result" 페이지는 그때 그때 입력된 값에 따라서 다른 결과를 보여주는 페이지 일 것입니다. 이러한 속성을 기억하면서 코딩을 하면 조금 더 쉽게 다가갈 수 있을 것입니다. 
 
 home.html 파일과 about.html 파일을 열어서 해당 페이지에 html 코드를 작성해봅시다. 
-
+{%raw%}
+{% highlight html %}
     <!-- home.html -->
     <h1> Wordcount Application </h1> 
 
     <!-- about.html -->
     <h1> About Wordcount </h1>
-
+{% endhighlight %}
+{%endraw%}
 이런식으로 일단 간단하게 작성해주시면 됩니다. 
 
 ---
@@ -140,18 +153,25 @@ home.html 파일과 about.html 파일을 열어서 해당 페이지에 html 코�
 
 wordcount >> [views.py](http://views.py) 파일을 열어주세요. 
 
+{%raw%}
+{% highlight python %}
     from django.shortcuts import render
     
     # Create your views here.
+{% endhighlight %}
+{%endraw%}
 
 라는 내용이 보이면 잘 찾으신겁니다. 이 뷰 파일 내에는 특정 url로 누군가 접속했을 때, 그 접속을 어떻게 처리할 것인가에 대한 내용을 적는 곳입니다. 앞서 말한 것 처럼 home.html과 about.html은 그냥 단순하게 그 사이트에 접속하면 되는 것이기 때문에, 아래와 같이 코드를 작성해주시면 됩니다. 
 
+{%raw%}
+{% highlight python %}
     def home(request): 
     		return render(request, 'home.html')
     
     def about(request):
     		return render(request, 'about.html')
-
+{% endhighlight %}
+{%endraw%}
 ---
 
 ## 04. URLconf 연결하기
@@ -160,6 +180,8 @@ wordcount >> [views.py](http://views.py) 파일을 열어주세요.
 
 firstproject >> [urls.py](http://urls.py) 파일을 열어주세요.
 
+{%raw%}
+{% highlight python %}
  
 
     from django.conf.urls import url
@@ -176,6 +198,8 @@ firstproject >> [urls.py](http://urls.py) 파일을 열어주세요.
     		path('about/', wordcount.views.about, name="about"),
     #여기까지
     ]
+{% endhighlight %}
+{%endraw%}
 
 URL 패턴은 아래와 같이 사용됩니다. 원래 django는 url()의 형식을 사용해 url을 연결했습니다. 그러나 admin 주소에서 보이는 것처럼 그 표현을 정규표현식으로 해야했기 때문에 가독성이 떨어진다는 문제점이 있었습니다. 그래서 Django 2 부터 path라는 기능이 새로 생겼고 path는 훨씬 쉽게 url 작성이 가능합니다. <참고: [https://docs.djangoproject.com/en/2.2/topics/http/urls/](https://docs.djangoproject.com/en/2.2/topics/http/urls/)>
 
@@ -232,7 +256,7 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
 
 {%raw%}
 {% %} {%endraw%} 표시는 그 안에서는 django 문법을 불러 오겠다는 뜻입니다. 즉 url 중에서 이름이 'about' 이라는 주소를 불러 오겠다는 뜻이죠. 아까 [url.py](http://url.py) 파일에서 name="" 설정 해줬을 때의 그 값을 말합니다. 
-
+{%endraw%}
 즉 코딩 도중에 상세 주소가 바뀌더라도, 그 이름을 찾아서 가기 때문에 html 파일을 하나하나 수정해 줄 필요가 없다는 얘기입니다. 
 
 ### 05-2. 입력된 텍스트 넘기기
@@ -267,6 +291,7 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
 이렇게 바꿔주면 됩니다. 그러나 이렇게만 해서는 기능이 작동되지 않습니다. 앞서 말했던 것 처럼 result 페이지는 단순히 어떠한 페이지를 보여주는 home, about과는 다르게 그때그때 입력된 값에 따라 다른 결과를 보여줘야 합니다. 
 
 그래서 Count! 버튼을 누르면 form 태그 안에서 작성된 textarea의 값을 함께 가지고 result.html로 넘어갈 수 있게끔 코드를 추가해줘야 합니다. 
+{%raw%}
 {% highlight html %}
     #views.py
     def result(request):
@@ -275,13 +300,17 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
 
     input_text = request.GET['fulltext']
 {% endhighlight %}
+{endraw%}
 위 코드는 form 태그가 보내는 "fulltext"라는 이름을 가진 값을 input_text라는 이름을 가진 변수에 넣겠다는 뜻 입니다. 
+{%raw%}
 {% highlight html %}
     return render(request, 'wordcount/result.html', {'inputtext': input_text})
 {% endhighlight %}
+{%endraw%}
 가장 뒤에 추가된 부분은 result.html에서 inputtext라는 이름을 통해 input_text에 들어있는 변수를 불러 오겠다는 것입니다. 
 
 이제 그 결과를 result.html 페이지에 띄울 차례 입니다. 
+{%raw%}
 {% highlight html %}
     <h1> Result </h1>
     
@@ -293,12 +322,13 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     <h3> 단어 카운트 <h3>
     <!-- '단어' : '단어 나온 횟수' -->
 {% endhighlight %}
+{%endraw%}
 이 때 {{ }} 는 {% %}와 달리 django를 통해 넘겨받은 데이터를 출력할 때 사용하는 코드입니다. 
 
 ### 05-3. Count 함수 기능 추가하기
 
 가장 먼저 총 단어 수를 보여주는 기능을 추가해 보겠습니다. 
-
+{%raw%}
     #views.py
 {% highlight html %}
     def result(request):
@@ -309,7 +339,9 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     		return render(request, 'result.html', {'fulltext': input_text, 'total': len(word_list)})
     		#total 이라는 변수에 word_list의 길이를 넣을 것이다. 
 {% endhighlight %}
+{%endraw%}
 이제 result 페이지에 이 값을 보여주면 되겠죠?
+{%raw%}
 {% highlight html %}
     <!-- result.html --> 
     
@@ -318,7 +350,9 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     <h3> 당신이 입력한 텍스트는 {{total}} 단어로 구성되어 있습니다. </h3>
     ...
 {% endhighlight %}
+{%endraw%}
 이제 각 단어별로 몇번 반복 되었는지 세는 기능을 만들어 보겠습니다. 
+{%raw%}
 {% highlight html %}
     #views.py
     
@@ -337,12 +371,15 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     				word_dictionary[word] = 1
     
     		return render(request, 'result.html', {'inputtext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()})
-    		
+
 {% endhighlight %}
+{%endraw%}
 코드를 차근차근 설명하자면,
+{%raw%}
 {% highlight html %}
     word_dictionary = {}
 {% endhighlight %}
+{%endraw%}
 먼저 word_dictionary 라는 이름을 가진 딕셔너리를 하나 만들어주라는 코디 입니다.
 {% highlight html %}
     for word in word_list:
@@ -352,12 +389,15 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     					word_dictionary[word] = 1
 {% endhighlight %}
 그 다음 "word_list를 word라는 이름으로 받아오고, 그 리스트에 단어가 이미 딕셔너리 key 값으로 있다면, value에 1을 더하고 / 없다면 해당 이름으로 key 값을 만들고 그 value는 1로 해라" 라는 의미의 코드입니다.
+{%raw%}
 {% highlight html %}
     return render(request, 'result.html', {'fulltext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()})
 {% endhighlight %}
+{%endraw%}
 그리고 word_dictionary의 모든 값을 dictionary 라는 이름의 변수로 result.html에서 보여주겠다는 뜻입니다. 
 
 이제 [views.py](http://views.py) 작성이 끝났으니 result.html로 가서
+{%raw%}
 {% highlight html %}
     <!-- result.html --> 
     
@@ -374,10 +414,13 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
     <br>
     {%endfor%}
 {% endhighlight %}
+{%endraw%}
 라고 입력해줍니다. 
+{%raw%}
 {% highlight html %}
 이를 해석해보면 dictionary의 내용을 하나하나씩 가져와서 key 값은 word라고 부르고, value 값은 frequency라고 부를 것이다. 그리고 순서대로 {{word}} - {{frequency}} 형태로 출력할 것이다, 라는 뜻입니다. 
 {% endhighlight %}
+{%endraw%}
 ---
 
 # Parsing
@@ -581,6 +624,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     	return render(request, 'about.html')
 {% endhighlight %}
 마지막으로 해당 딕셔너리를 Templates로 넘겨줍니다.
+{%raw%}
 {% highlight html %}
     #views.py
     
@@ -603,7 +647,9 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     	#Templates로 가져가기
     	return render(request, 'about.html', {'notices': notices.items()})
 {% endhighlight %}
+{%raw%}
 자 이제 about.html 파일로 갑니다. 
+{%raw%}
 {% highlight html %}
     <!-- about.html -->
     <h1> About Wordcount </h1>
@@ -611,6 +657,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     {{title}} - {{link}}
     {%endfor%}
 {% endhighlight %}
+{%endraw%}
 이렇게 입력해 준 후, 서버를 키고 about 페이지에 접속해 봅니다.
 
 ![](../../images/_2019-03-23__3-ba6970c4-e553-40c6-8958-ea68a0fa1186.45.36.png)
@@ -618,6 +665,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
 이런식으로 나오면 성공적으로 잘 하신 겁니다.
 
 다만, 이렇게 되면 가독성도 떨어지고 글로 찾아가기도 어려우니 직접 링크를 만들어서 달아보도록 하겠습니다.
+{%raw%}
 {% highlight html %}
     <!-- about.html -->
     <h1> About Wordcount </h1>
@@ -626,7 +674,9 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     <br>
     {%endfor%}
 {% endhighlight %}
+{%endraw%}
 ![](../../images/_2019-03-23__3-f7c859a7-4805-4e02-955c-c03f55bb5c9d.49.33.png)
+{%raw%}
 {% highlight html %}
     <!-- about.html -->
     <h1> About Wordcount </h1>
@@ -635,6 +685,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     <br>
     {%endfor%}
 {% endhighlight %}
+{%endraw%}
 ![](../../images/_2019-03-23__3-39266903-48c0-45e0-a044-02405bf8c91c.49.46.png)
 
 위에 두 방법 중 더 마음에 드시는 방법으로 사용하시면 되겠습니다. 
