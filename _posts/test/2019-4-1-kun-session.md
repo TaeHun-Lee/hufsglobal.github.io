@@ -531,8 +531,9 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     def about(request):
     	from urllib.request import urlopen
     	from bs4 import BeautifulSoup
-    
+        {%raw%}
     	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+        {%endraw}
     	bsObject = BeautifulSoup(html, "html.parser")
     	table = bsObject.find("table")
     	titles = table.find_all(class_="title")
@@ -553,8 +554,8 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     def about(request):
     	from urllib.request import urlopen
     	from bs4 import BeautifulSoup
-    
-    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+    {%raw%}
+    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right"){%endraw}
     	bsObject = BeautifulSoup(html, "html.parser")
     	table = bsObject.find("table")
     	titles = table.find_all(class_="title")
@@ -576,8 +577,9 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     def about(request):
     	from urllib.request import urlopen
     	from bs4 import BeautifulSoup
-    
+        {%raw%}
     	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+       {%endraw}   
     	bsObject = BeautifulSoup(html, "html.parser")
     	table = bsObject.find("table")
     	titles = table.find_all(class_="title")
