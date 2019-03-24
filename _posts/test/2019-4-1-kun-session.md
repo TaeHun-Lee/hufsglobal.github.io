@@ -85,8 +85,6 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
     {%endraw%}
 **아래와 같이 나온다면 성공!**
 
-![](../../images/_2019-03-18__11-26618f3e-8ec7-49e8-9db7-f1b9c92cc863.27.40.png)
-
 ---
 
 ## 02. Templates 만들어주기
@@ -126,8 +124,6 @@ Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니�
 {% endhighlight %}
 {%endraw%}
 자, 여기서 잠깐 Template가 뭐였는지 한번 복습하고 갑시다. Template는 Django가 사용하는 MTV 패턴에서 T에 해당하는 Template를 말합니다. 더 통상적으로 사용되는 MVC 패턴에서의 V를 뜻하는 View, 즉 사용자에게 보여주는 사이트 화면을 말하죠. 자 그럼 이 사실을 잊지 말고 Template를 한번 만들어 봅시다. 
-
-![](../../images/_2019-03-18__11-947cc4b3-733e-4e20-89a5-5d6f410f2e95.48.15.png)
 
 가장 먼저 Template들을 담을 디렉토리를 하나 만들어줘야 합니다. wordcount 안에 "templates"라는 이름의 폴더를 만들어주면 됩니다. 만들어진 templates 폴더 안에 **"home.html", "result.html", "about.html"** 의 이름을 가진 파일 3개를 만들어줍니다. "home" 페이지는 프로젝트에 접속 했을 때 나오는 루트 페이지를, "about" 페이지는 만들어진 Wordcounter 에 대한 설명을, "result" 페이지는 단어를 카운트 한 결과를 보여주는 페이지 입니다. 
 
@@ -661,8 +657,6 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
 {%endraw%}
 이렇게 입력해 준 후, 서버를 키고 about 페이지에 접속해 봅니다.
 
-![](../../images/_2019-03-23__3-ba6970c4-e553-40c6-8958-ea68a0fa1186.45.36.png)
-
 이런식으로 나오면 성공적으로 잘 하신 겁니다.
 
 다만, 이렇게 되면 가독성도 떨어지고 글로 찾아가기도 어려우니 직접 링크를 만들어서 달아보도록 하겠습니다.
@@ -676,7 +670,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     {%endfor%}
 {% endhighlight %}
 {%endraw%}
-![](../../images/_2019-03-23__3-f7c859a7-4805-4e02-955c-c03f55bb5c9d.49.33.png)
+
 {%raw%}
 {% highlight html %}
     <!-- about.html -->
@@ -687,7 +681,6 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     {%endfor%}
 {% endhighlight %}
 {%endraw%}
-![](../../images/_2019-03-23__3-39266903-48c0-45e0-a044-02405bf8c91c.49.46.png)
 
 위에 두 방법 중 더 마음에 드시는 방법으로 사용하시면 되겠습니다. 
 
