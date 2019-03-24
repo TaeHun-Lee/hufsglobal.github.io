@@ -524,9 +524,9 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
 앞서 Wordcount 에서 Result를 가져온 것과 비슷한 방식으로 해당 페이지도 구성하고자 합니다. 
 
 먼저 Dictionary를 하나 만들어줍니다. 
-
+    {%raw%}
     #views.py
-    
+    {%endraw}
     def about(request):
     	from urllib.request import urlopen
     	from bs4 import BeautifulSoup
