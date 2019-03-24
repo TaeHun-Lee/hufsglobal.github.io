@@ -4,7 +4,7 @@ title: 05. HTTP Methods / Wordcounter / Parsing
 category: test
 ---
 세션 5 - prod. 인건
-
+{%raw%}
 # 4월 1일 멋쟁이 사자처럼 교육 세션
 
 # HTTP Methods
@@ -632,3 +632,4 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
 예쁘게 꾸미시는건 여러분의 몫으로 남기겠습니다! 
 
 ### 고생하셨습니다! ✌️
+{%endraw%}
