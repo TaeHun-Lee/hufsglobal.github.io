@@ -532,12 +532,12 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     	from bs4 import BeautifulSoup
         {%raw%}
     	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-        {%endraw}
+        {%endraw%}
     	bsObject = BeautifulSoup(html, "html.parser")
     	table = bsObject.find("table")
     	titles = table.find_all(class_="title")
     	#딕셔너리 만들기
-    	notices = {%raw%}{}{%endraw}
+    	notices = {%raw%}{}{%endraw%}
     	for title in titles:
     			x = title.get_text()
     			x = x.replace("\t", '')
@@ -554,11 +554,11 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     	from urllib.request import urlopen
     	from bs4 import BeautifulSoup
     {%raw%}
-    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right"){%endraw}
+    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right"){%endraw%}
     	bsObject = BeautifulSoup(html, "html.parser")
     	table = bsObject.find("table")
     	titles = table.find_all(class_="title")
-    	notices = {%raw%}{}{%endraw}
+    	notices = {%raw%}{}{%endraw%}
     	for title in titles:
     			x = title.get_text()
     			x = x.replace("\t", '')
@@ -578,11 +578,11 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     	from bs4 import BeautifulSoup
         {%raw%}
     	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-       {%endraw}   
+       {%endraw%}   
     	bsObject = BeautifulSoup(html, "html.parser")
     	table = bsObject.find("table")
     	titles = table.find_all(class_="title")
-    	notices = {%raw%}{}{%endraw}
+    	notices = {%raw%}{}{%endraw%}
     	for title in titles:
     			x = title.get_text()
     			x = x.replace("\t", '')
@@ -601,7 +601,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     {% for title, link in notices%}
     {{title}} - {{link}}
     {%endfor%}
-    {%endraw}
+    {%endraw%}
 이렇게 입력해 준 후, 서버를 키고 about 페이지에 접속해 봅니다.
 
 이런식으로 나오면 성공적으로 잘 하신 겁니다.
@@ -615,7 +615,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     {{title}} <a href="{{link}}">글 보기</a>
     <br>
     {%endfor%}
-    {%endraw}   
+    {%endraw%}   
     {%raw%}
     <!-- about.html -->
     <h1> About Wordcount </h1>
@@ -623,7 +623,7 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
     <a href="{{link}}">{{title}}</a>
     <br>
     {%endfor%}
-    {%endraw} 
+    {%endraw%} 
 위에 두 방법 중 더 마음에 드시는 방법으로 사용하시면 되겠습니다. 
 
 이렇게 BeautifulSoup을 이용한 파싱의 기본을 배워보았습니다.
