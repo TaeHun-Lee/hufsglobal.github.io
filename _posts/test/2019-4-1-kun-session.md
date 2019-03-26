@@ -63,7 +63,7 @@ $ source myvenv/Scripts/acitvate
 {% endhighlight%}
 
 **→ 프로젝트 만들기**
-{% highlight python %}
+{% highlight bash %}
 #Firstproject라는 이름을 가진 장고 프로젝트를 생성
 $ django-admin startproject Firstproject
 {% endhighlight%}
@@ -84,32 +84,34 @@ $ python manage.py startapp wordcount
 
 먼저 만들어진 wordcount 앱의 존재를 프로젝트에 알려줘야 앱을 프로젝트 내에서 사용할 수 있게 됩니다. 
 
-Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니다. 조금만 내려보시면 아래와 같이 설치된 앱들에 대한 정보가 나와 있을 것 입니다. 
+Firstproject > settings.py 파일을 켜주시면 됩니다. 조금만 내려보시면 아래와 같이 설치된 앱들에 대한 정보가 나와 있을 것 입니다. 
+{% hightlight python %}
+# Application definition
 
-    # Application definition
-    
-    INSTALLED_APPS = [
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-    ]
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+{% endhighlight %}
 
 가장 아래에 아래와 같이 wordcount 앱에 대한 정보를 입력해주면 됩니다. 
+{% hightlight python %}
+# Application definition
 
-    # Application definition
-    
-    INSTALLED_APPS = [
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-    		'wordcount.apps.WordcountConfig',
-    ]
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+        'wordcount.apps.WordcountConfig',
+]
+{% endhighlight %}
 
 자, 여기서 잠깐 Template가 뭐였는지 한번 복습하고 갑시다. Template는 Django가 사용하는 MTV 패턴에서 T에 해당하는 Template를 말합니다. 더 통상적으로 사용되는 MVC 패턴에서의 V를 뜻하는 View, 즉 사용자에게 보여주는 사이트 화면을 말하죠. 자 그럼 이 사실을 잊지 말고 Template를 한번 만들어 봅시다. 
 
@@ -118,13 +120,13 @@ Firstproject > [settings.py](http://settings.py) 파일을 켜주시면 됩니�
 이러한 3개의 템플렛은 2가지 속성으로 구분 할 수 있습니다. "home"과 "about"은 항상 같은 페이지를 보여주는 반면 "result" 페이지는 그때 그때 입력된 값에 따라서 다른 결과를 보여주는 페이지 일 것입니다. 이러한 속성을 기억하면서 코딩을 하면 조금 더 쉽게 다가갈 수 있을 것입니다. 
 
 home.html 파일과 about.html 파일을 열어서 해당 페이지에 html 코드를 작성해봅시다. 
+{% highlight html %}
+<!-- home.html -->
+<h1> Wordcount Application </h1> 
 
-    <!-- home.html -->
-    <h1> Wordcount Application </h1> 
-
-    <!-- about.html -->
-    <h1> About Wordcount </h1>
-
+<!-- about.html -->
+<h1> About Wordcount </h1>
+{% endhighlight %}
 이런식으로 일단 간단하게 작성해주시면 됩니다. 
 
 ---
@@ -133,20 +135,20 @@ home.html 파일과 about.html 파일을 열어서 해당 페이지에 html 코�
 
 보여질 페이지를 만들었으니 이제 페이지를 연결해서 접속 가능하게 만들어야 합니다. 
 
-wordcount >> [views.py](http://views.py) 파일을 열어주세요. 
+wordcount >> views.py 파일을 열어주세요. 
+{% highlight python %}
+from django.shortcuts import render
 
-    from django.shortcuts import render
-    
-    # Create your views here.
-
+# Create your views here.
+{% endhighlight %}
 라는 내용이 보이면 잘 찾으신겁니다. 이 뷰 파일 내에는 특정 url로 누군가 접속했을 때, 그 접속을 어떻게 처리할 것인가에 대한 내용을 적는 곳입니다. 앞서 말한 것 처럼 home.html과 about.html은 그냥 단순하게 그 사이트에 접속하면 되는 것이기 때문에, 아래와 같이 코드를 작성해주시면 됩니다. 
-
+{% highlight python %}
     def home(request): 
     		return render(request, 'home.html')
     
     def about(request):
     		return render(request, 'about.html')
-
+{% endhighlight %}
 ---
 
 ## 04. URLconf 연결하기
