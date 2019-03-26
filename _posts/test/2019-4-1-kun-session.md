@@ -85,7 +85,7 @@ $ python manage.py startapp wordcount
 먼저 만들어진 wordcount 앱의 존재를 프로젝트에 알려줘야 앱을 프로젝트 내에서 사용할 수 있게 됩니다. 
 
 Firstproject > settings.py 파일을 켜주시면 됩니다. 조금만 내려보시면 아래와 같이 설치된 앱들에 대한 정보가 나와 있을 것 입니다. 
-{% hightlight python %}
+{% highlight python %}
 # Application definition
 
 INSTALLED_APPS = [
