@@ -99,7 +99,7 @@ INSTALLED_APPS = [
 {% endhighlight %}
 
 가장 아래에 아래와 같이 wordcount 앱에 대한 정보를 입력해주면 됩니다. 
-{% hightlight python %}
+{% highlight python %}
 # Application definition
 
 INSTALLED_APPS = [
