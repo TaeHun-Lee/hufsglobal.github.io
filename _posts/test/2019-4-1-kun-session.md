@@ -80,6 +80,8 @@ $ python manage.py startapp wordcount
 {% endhighlight%}
 ---
 
+# 아래와 같이 나온다며 성공
+![screenshot1](../../images/_2019-03-18__11-26618f3e-8ec7-49e8-9db7-f1b9c92cc863.27.40.png)
 ## 02. Templates 만들어주기
 
 먼저 만들어진 wordcount 앱의 존재를 프로젝트에 알려줘야 앱을 프로젝트 내에서 사용할 수 있게 됩니다. 
