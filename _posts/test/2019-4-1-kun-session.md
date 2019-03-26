@@ -4,7 +4,7 @@ title: 05. HTTP Methods / Wordcounter / Parsing
 category: test
 ---
 세션 5 - prod. 인건
-# 4월 1일 멋쟁이 사자처럼 교육 세션
+
 
 # HTTP Methods
 
