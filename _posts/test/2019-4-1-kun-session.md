@@ -144,10 +144,10 @@ from django.shortcuts import render
 라는 내용이 보이면 잘 찾으신겁니다. 이 뷰 파일 내에는 특정 url로 누군가 접속했을 때, 그 접속을 어떻게 처리할 것인가에 대한 내용을 적는 곳입니다. 앞서 말한 것 처럼 home.html과 about.html은 그냥 단순하게 그 사이트에 접속하면 되는 것이기 때문에, 아래와 같이 코드를 작성해주시면 됩니다. 
 {% highlight python %}
 def home(request): 
-        return render(request, 'home.html')
+    return render(request, 'home.html')
 
 def about(request):
-        return render(request, 'about.html')
+    return render(request, 'about.html')
 {% endhighlight %}
 ---
 
@@ -169,8 +169,8 @@ import wordcount.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 #추가된 내용
-        path('', wordcount.views.home, name="home"),
-        path('about/', wordcount.views.about, name="about"),
+    path('', wordcount.views.home, name="home"),
+    path('about/', wordcount.views.about, name="about"),
 #여기까지
 ]
 
@@ -181,8 +181,8 @@ URL 패턴은 아래와 같이 사용됩니다. 원래 django는 url()의 형식
 path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니다.
 {% highlight python %}
 path('기본 url 뒤에 붙는 상세 주소', 
-         '그 주소로 접속하면 연결되는 view가 어디인지', 
-         '이 url을 호출할 때 사용할 이름이 무엇인지'),
+    '그 주소로 접속하면 연결되는 view가 어디인지', 
+    '이 url을 호출할 때 사용할 이름이 무엇인지'),
 {% endhighlight %}
 예를 들어, 
 {% highlight python %}
@@ -207,9 +207,9 @@ path('about', wordcount.views.about, name="about"),
 <a href=""> ABOUT </a>
 
 <form action="">
-        <textarea cols="40" rows="10" name="fulltext"></textarea>
-        <br>
-        <input type="submit" value="Count!">
+    <textarea cols="40" rows="10" name="fulltext"></textarea>
+    <br>
+    <input type="submit" value="Count!">
 </form>
 {% endhighlight %}
 
@@ -239,12 +239,12 @@ path('about', wordcount.views.about, name="about"),
 {% highlight python %}
 #views.py
 def result(request):
-        return render(request, 'wordcount/result.html')
+    return render(request, 'wordcount/result.html')
 
 # urls.py
 urlpatterns = [
 ...
-        path('result/', wordcount.views.result, name="result"),
+    path('result/', wordcount.views.result, name="result"),
 ]
 {% endhighlight %}
 
@@ -254,9 +254,9 @@ urlpatterns = [
 <a href="{%raw%}{% url 'about' %}"{%endraw%}> ABOUT </a>
 
 <form action="{%raw%} {% url 'result' %}"{%endraw%}>
-        <textarea cols="40" rows="10" name="fulltext"></textarea>
-        <br>
-        <input type="submit" value="Count!">
+    <textarea cols="40" rows="10" name="fulltext"></textarea>
+    <br>
+    <input type="submit" value="Count!">
 </form>
 {% endhighlight %}
 
@@ -266,8 +266,8 @@ urlpatterns = [
 {% highlight python %}
 #views.py
 def result(request):
-        input_text = request.GET['fulltext']
-        return render(request, 'result.html', {%raw%}{'fulltext': input_text}{%endraw%})
+    input_text = request.GET['fulltext']
+    return render(request, 'result.html', {%raw%}{'fulltext': input_text}{%endraw%})
 
 input_text = request.GET['fulltext']
 {% endhighlight %}
@@ -299,12 +299,12 @@ return render(request, 'wordcount/result.html', {%raw%}{'inputtext': input_text}
 #views.py
     
 def result(request):
-        input_text = request.GET['fulltext']
+    input_text = request.GET['fulltext']
 
-        word_list = input_text.split() # input_text 변수 속에 있는 글을 띄어쓰기 기준으로 쪼개는 기능
+    word_list = input_text.split() # input_text 변수 속에 있는 글을 띄어쓰기 기준으로 쪼개는 기능
 
-        return render(request, 'result.html', {%raw%}{'fulltext': input_text, 'total': len(word_list)}){%endraw%}
-        #total 이라는 변수에 word_list의 길이를 넣을 것이다. 
+    return render(request, 'result.html', {%raw%}{'fulltext': input_text, 'total': len(word_list)}){%endraw%}
+    #total 이라는 변수에 word_list의 길이를 넣을 것이다. 
 {% endhighlight %}
 이제 result 페이지에 이 값을 보여주면 되겠죠?
 {% highlight html %}
@@ -498,11 +498,12 @@ for title in titles:
     x = x.replace("\t", '')
     x = x.replace("\n", '')
     print(x)
-        #링크라는 변수를 만들어서, 그 안에 a태그의 href정보를 가져와라
-        link = title.a.get('href')
-        #학교 기본 url에 뽑아온 링크를 합쳐라
-        url = 'http://www.hufs.ac.kr/user/' + link
-        print(url)
+    
+    #링크라는 변수를 만들어서, 그 안에 a태그의 href정보를 가져와라
+    link = title.a.get('href')
+    #학교 기본 url에 뽑아온 링크를 합쳐라
+    url = 'http://www.hufs.ac.kr/user/' + link
+    print(url)
 {% endhighlight %}
 이렇게 되면 글 제목 밑에 페이지 url이 나오게 됩니다. 클릭해서 해당 제목을 가진 글로 잘 연결되는지 확인 해보시기 바랍니다.
 
