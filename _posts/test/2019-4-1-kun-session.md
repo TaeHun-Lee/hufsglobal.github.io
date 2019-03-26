@@ -48,7 +48,7 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
 가장 먼저 Django 프로젝트를 만들어줘야 합니다.
 
 → **가상 환경에 접속하는게 항상 먼저 이루어져야 합니다.** 
-
+{% highlight python %}
     #myvenv라는 이름을 가진 가상환경을 현재 디렉토리에 생성하기
     $ python3 -m venv myvenv
     
@@ -60,7 +60,7 @@ Wordcounter 프로젝트는 말 그래도 단어를 세어주는 사이트를 �
     
     #아래와같이 나오기 시작하면 가상환경 접속 성공!
     (myvenv)$ 
-
+{% endhighlight%}
 **→ 프로젝트 만들기**
 
     #Firstproject라는 이름을 가진 장고 프로젝트를 생성
