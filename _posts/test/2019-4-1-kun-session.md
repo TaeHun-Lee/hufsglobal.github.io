@@ -143,11 +143,11 @@ from django.shortcuts import render
 {% endhighlight %}
 라는 내용이 보이면 잘 찾으신겁니다. 이 뷰 파일 내에는 특정 url로 누군가 접속했을 때, 그 접속을 어떻게 처리할 것인가에 대한 내용을 적는 곳입니다. 앞서 말한 것 처럼 home.html과 about.html은 그냥 단순하게 그 사이트에 접속하면 되는 것이기 때문에, 아래와 같이 코드를 작성해주시면 됩니다. 
 {% highlight python %}
-    def home(request): 
-    		return render(request, 'home.html')
-    
-    def about(request):
-    		return render(request, 'about.html')
+def home(request): 
+        return render(request, 'home.html')
+
+def about(request):
+        return render(request, 'about.html')
 {% endhighlight %}
 ---
 
@@ -155,41 +155,43 @@ from django.shortcuts import render
 
 이제 view까지 다 만들었으니 이제 해당 view로 갈 url을 연결해줘야 합니다. 쉽게 말해서 기능은 다 만들었으니 그 기능으로 가는 길을 뚫어주는 차례인 것 입니다.
 
-firstproject >> [urls.py](http://urls.py) 파일을 열어주세요.
+firstproject >> urls.py 파일을 열어주세요.
 
- 
+{% highlight python %}
 
-    from django.conf.urls import url
-    from django.contrib import admin
-    #추가된 내용
-    from django.urls import path
-    import wordcount.views
-    #여기까지
-    
-    urlpatterns = [
-        url(r'^admin/', admin.site.urls),
-    #추가된 내용
-    		path('', wordcount.views.home, name="home"),
-    		path('about/', wordcount.views.about, name="about"),
-    #여기까지
-    ]
+from django.conf.urls import url
+from django.contrib import admin
+#추가된 내용
+from django.urls import path
+import wordcount.views
+#여기까지
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+#추가된 내용
+        path('', wordcount.views.home, name="home"),
+        path('about/', wordcount.views.about, name="about"),
+#여기까지
+]
+
+{% endhighlight %}
 
 URL 패턴은 아래와 같이 사용됩니다. 원래 django는 url()의 형식을 사용해 url을 연결했습니다. 그러나 admin 주소에서 보이는 것처럼 그 표현을 정규표현식으로 해야했기 때문에 가독성이 떨어진다는 문제점이 있었습니다. 그래서 Django 2 부터 path라는 기능이 새로 생겼고 path는 훨씬 쉽게 url 작성이 가능합니다. <참고: [https://docs.djangoproject.com/en/2.2/topics/http/urls/](https://docs.djangoproject.com/en/2.2/topics/http/urls/)>
 
 path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니다.
-
-    path('기본 url 뒤에 붙는 상세 주소', 
-    		 '그 주소로 접속하면 연결되는 view가 어디인지', 
-    		 '이 url을 호출할 때 사용할 이름이 무엇인지'),
-
+{% highlight python %}
+path('기본 url 뒤에 붙는 상세 주소', 
+         '그 주소로 접속하면 연결되는 view가 어디인지', 
+         '이 url을 호출할 때 사용할 이름이 무엇인지'),
+{% endhighlight %}
 예를 들어, 
-
-    path('', wordcount.views.home, name="home"),
-
+{% highlight python %}
+path('', wordcount.views.home, name="home"),
+{% endhighlight %}
 이라고 한다면, "localhost:8000" 혹은 "127.0.0.1:8000" 뒤에 아무것도 안 붙였을 때, wordcount 앱 views 안에 home에 작성된 기능을 작동시키고, 이 주소를 우리는 앞으로 편의상 home이라고 부를게 라는 이야기 이고,
-
-    path('about', wordcount.views.about, name="about"),
-
+{% highlight python %}
+path('about', wordcount.views.about, name="about"),
+{% endhighlight %}
 이라고 한다면, "localhost:8000/about" 혹은 "127.0.0.1:800/about"의 주소로 접속했을 때, wordcount 앱 views 안에 about 이라는 기능을 작동시키고, 이 주소를 우리가 앞으로 편의상 about이라고 부를게 라는 이야기 입니다.
 
 ---
@@ -201,29 +203,29 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
 앞서 간략하게 이름만 적어 놓았던 ".html" 파일들을 이제 제대로 한번 만들어 볼 시간입니다. 
 
 먼저 home.html 페이지에는 about으로 연결되는 링크와 텍스트의 길이를 확인할 입력창이 필요합니다. 코드는 아래와 같습니다. 
+{% highlight html %}
+<a href=""> ABOUT </a>
 
-    <a href=""> ABOUT </a>
-    
-    <form action="">
-    		<textarea cols="40" rows="10" name="fulltext"></textarea>
-    		<br>
-    		<input type="submit" value="Count!">
-    </form>
-
+<form action="">
+        <textarea cols="40" rows="10" name="fulltext"></textarea>
+        <br>
+        <input type="submit" value="Count!">
+</form>
+{% endhighlight %}
 
 이제 ABOUT을 누르면 about.html로 넘어가게 기능을 만들어 보겠습니다. 매우 쉽습니다.
-
-    <a href="{%raw%}{% url 'about' %}{%endraw%}">ABOUT</a>
-
+{% highlight html %}
+<a href="{%raw%}{% url 'about' %}{%endraw%}">ABOUT</a>
+{% endhighlight %}
 이라고 입력해주면 됩니다. 
 
 사실,
-
-    <a href="/about">ABOUT</a>
-
+{% highlight html %}
+<a href="/about">ABOUT</a>
+{% endhighlight %}
 이라고 입력 해줘도 똑같이 작동합니다. 이게 우리가 공부 했던 더 익숙한 html 방식 일 것입니다. 그러나 웹 페이지 개발을 할 때 더 효율적인 방법은 첫번째 방법입니다. 
 
-{%raw%}{% %}{%endraw%} 표시는 그 안에서는 django 문법을 불러 오겠다는 뜻입니다. 즉 url 중에서 이름이 'about' 이라는 주소를 불러 오겠다는 뜻이죠. 아까 [url.py](http://url.py) 파일에서 name="" 설정 해줬을 때의 그 값을 말합니다. 
+{%raw%}{% %}{%endraw%} 표시는 그 안에서는 django 문법을 불러 오겠다는 뜻입니다. 즉 url 중에서 이름이 'about' 이라는 주소를 불러 오겠다는 뜻이죠. 아까 url.py 파일에서 name="" 설정 해줬을 때의 그 값을 말합니다. 
 
 즉 코딩 도중에 상세 주소가 바뀌더라도, 그 이름을 찾아서 가기 때문에 html 파일을 하나하나 수정해 줄 필요가 없다는 얘기입니다. 
 
@@ -233,28 +235,30 @@ path()를 작성할 때는 아래와 같은 형식으로 작성해주면 됩니�
 
 가장 먼저 view에서 입력된 글을 처리하는 기능을 만들어줘야 합니다. 
 
-먼저 result라는 이름의 기능을 [views.py](http://views.py) 와 [urls.py](http://urls.py) 파일에 추가해줍시다. 
+먼저 result라는 이름의 기능을 views.py 와 urls.py 파일에 추가해줍시다. 
+{% highlight python %}
+#views.py
+def result(request):
+        return render(request, 'wordcount/result.html')
 
-    #views.py
-    def result(request):
-    		return render(request, 'wordcount/result.html')
-    
-    # urls.py
-    urlpatterns = [
-    ...
-    		path('result/', wordcount.views.result, name="result"),
-    ]
+# urls.py
+urlpatterns = [
+...
+        path('result/', wordcount.views.result, name="result"),
+]
+{% endhighlight %}
 
 그리고 home.html에 접속해서 "Count!" 기능을 누르면 "count" 기능이 실행되게 설정을 해줘야 합니다. 
+{% highlight html %}
 
-    <a href="{%raw%}{% url 'about' %}"{%endraw%}> ABOUT </a>
-    
-    <form action="{%raw%} {% url 'result' %}"{%endraw%}>
-    		<textarea cols="40" rows="10" name="fulltext"></textarea>
-    		<br>
-    		<input type="submit" value="Count!">
-    </form>
-    
+<a href="{%raw%}{% url 'about' %}"{%endraw%}> ABOUT </a>
+
+<form action="{%raw%} {% url 'result' %}"{%endraw%}>
+        <textarea cols="40" rows="10" name="fulltext"></textarea>
+        <br>
+        <input type="submit" value="Count!">
+</form>
+{% endhighlight %}
 
 이렇게 바꿔주면 됩니다. 그러나 이렇게만 해서는 기능이 작동되지 않습니다. 앞서 말했던 것 처럼 result 페이지는 단순히 어떠한 페이지를 보여주는 home, about과는 다르게 그때그때 입력된 값에 따라 다른 결과를 보여줘야 합니다. 
 
