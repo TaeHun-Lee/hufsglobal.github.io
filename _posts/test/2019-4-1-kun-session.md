@@ -393,7 +393,7 @@ pip install requests
 pip install beautifulsoup4
 {%endhighlight%}
 그 후 crawl.py에 두 기능을 모두 import 해줍니다. 코드는 아래와 같습니다. 
-{% highlight bash %}
+{% highlight python %}
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 {%endhighlight%}
