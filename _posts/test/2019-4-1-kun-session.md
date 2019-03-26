@@ -320,57 +320,57 @@ def result(request):
 #views.py
 
 def result(request):
+    input_text = request.GET['fulltext']
 
-        input_text = request.GET['fulltext']
-
-        word_list = input_text.split()
-
-        word_dictionary = {%raw%}{}{%endraw%}
-
-        for word in word_list:
-                if word in word_dictionary:
-                word_dicrtionary[word] += 1
-                else:
-                word_dictionary[word] = 1
-
-        return render(request, 'result.html', {%raw%}{'inputtext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()}){%endraw%}
-    		
-{% endhighlight %}
-코드를 차근차근 설명하자면,
+    word_list = input_text.split()
 
     word_dictionary = {%raw%}{}{%endraw%}
 
-먼저 word_dictionary 라는 이름을 가진 딕셔너리를 하나 만들어주라는 코디 입니다.
-
     for word in word_list:
-    				if word in word_dictionary:
-    					word_dictionary[word] += 1
-    				else:
-    					word_dictionary[word] = 1
+        if word in word_dictionary:
+        word_dicrtionary[word] += 1
+        else:
+        word_dictionary[word] = 1
 
+    return render(request, 'result.html', {%raw%}{'inputtext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()}){%endraw%}
+
+{% endhighlight %}
+코드를 차근차근 설명하자면,
+{% highlight python %}
+    word_dictionary = {%raw%}{}{%endraw%}
+{% endhighlight %}
+먼저 word_dictionary 라는 이름을 가진 딕셔너리를 하나 만들어주라는 코디 입니다.
+{% highlight python %}
+for word in word_list:
+    if word in word_dictionary:
+        word_dictionary[word] += 1
+    else:
+        word_dictionary[word] = 1
+{% endhighlight %}
 그 다음 "word_list를 word라는 이름으로 받아오고, 그 리스트에 단어가 이미 딕셔너리 key 값으로 있다면, value에 1을 더하고 / 없다면 해당 이름으로 key 값을 만들고 그 value는 1로 해라" 라는 의미의 코드입니다.
-
-    return render(request, 'result.html',{%raw%} {'fulltext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()}){%endraw%}
-
+{% highlight python %}
+return render(request, 'result.html',{%raw%} {'fulltext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()}){%endraw%}
+{% endhighlight %}
 그리고 word_dictionary의 모든 값을 dictionary 라는 이름의 변수로 result.html에서 보여주겠다는 뜻입니다. 
 
-이제 [views.py](http://views.py) 작성이 끝났으니 result.html로 가서
+이제 views.py 작성이 끝났으니 result.html로 가서
+{% highlight html %}
+<!-- result.html --> 
 
-    <!-- result.html --> 
-    
-    <h1> Result </h1>
-    <h3> 당신이 입력한 텍스트는 {%raw%}{{total}} {%endraw%}단어로 구성되어 있습니다. </h3>
-    
-    <h3> 입력한 텍스트 </h3>
-   {%raw%} {{ inputtext }} {%endraw%}
-    <br>
-    <h3> 단어 카운트 <h3>
-    
-   {%raw%} {% for word, frequency in dictionary %}
-    {{word}} - {{frequency}}
-    <br>
-    {%endfor%}
-    {%endraw%}
+<h1> Result </h1>
+<h3> 당신이 입력한 텍스트는 {%raw%}{{total}} {%endraw%}단어로 구성되어 있습니다. </h3>
+
+<h3> 입력한 텍스트 </h3>
+{%raw%} {{ inputtext }} {%endraw%}
+<br>
+<h3> 단어 카운트 <h3>
+
+{%raw%} {% for word, frequency in dictionary %}
+{{word}} - {{frequency}}
+<br>
+{%endfor%}
+{%endraw%}
+{% endhighlight %}
 라고 입력해줍니다. 
 
 이를 해석해보면 dictionary의 내용을 하나하나씩 가져와서 key 값은 word라고 부르고, value 값은 frequency라고 부를 것이다. 그리고 순서대로 {%raw%}{{word}} - {{frequency}} {%endraw%}형태로 출력할 것이다, 라는 뜻입니다. 
@@ -385,125 +385,125 @@ def result(request):
 
 그래도 뭔가 우리와 관련이 있는 정보를 가져와보는 실습을 하는게 좋을 것 같아서, 학교 홈페이지 정보를 가져와 보려고 합니다. 
 
-먼저, 가상환경을 켜주시고, 그 안에 [crawl.py](http://crawl.py)라는 이름의 파일을 생성해주시면 됩니다. 
+먼저, 가상환경을 켜주시고, 그 안에 crawl.py라는 이름의 파일을 생성해주시면 됩니다. 
 
 그 후 패키지 두 개를 설치해 주시면 됩니다. 
-
-    pip install requests
-    pip install beautifulsoup4
-
+{% highlight bash %}
+pip install requests
+pip install beautifulsoup4
+{%endhighlight%}
 그 후 crawl.py에 두 기능을 모두 import 해줍니다. 코드는 아래와 같습니다. 
-
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-
+{% highlight bash %}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+{%endhighlight%}
 그러면 이제 크롤링을 할 준비가 된 것 입니다. 
 
 urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이고, beautifulsoup는 해당 url에서 우리가 가져오고 싶은 정보를 가져오게 해주는 패키지 입니다. 
 
 먼저 간단하게 페이지를 가져오는 기능을 실행해 보겠습니다. 
+{% highlight python %}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    
-    #html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
-    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-    #beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
-    bsObject = BeautifulSoup(html, "html.parser")
-    #해당 페이지 정보를 프린트 해보기
-    print(bsObject)
-
+#html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
+html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+#beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
+bsObject = BeautifulSoup(html, "html.parser")
+#해당 페이지 정보를 프린트 해보기
+print(bsObject)
+{% endhighlight %}
 이후 터미널에 
-
-    $ python3 crawl.py 
-
+{% highlight bash %}
+$ python3 crawl.py 
+{% endhighlight %}
 이라고 입력하면 해당 정보가 불러와 지는 것을 볼 수 있습니다. 
 
 자, 이제 여기서 원하는 정보를 가공하는 방법을 알려드리겠습니다. 
 
 먼저 특정 html 태그를 불러오는 방법입니다. 
+{% highlight python %}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    
-    #html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
-    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-    #beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
-    bsObject = BeautifulSoup(html, "html.parser")
-    #해당 페이지에서 table 태그 불러오기
-    table = bsObject.find("table")
-    
-    print(table)
+#html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
+html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+#beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
+bsObject = BeautifulSoup(html, "html.parser")
+#해당 페이지에서 table 태그 불러오기
+table = bsObject.find("table")
 
+print(table)
+{% endhighlight %}
 이렇게 실행하면 table 안에 있는 정보만 불러 오는 기능을 실행합니다. 
 
 만약 공지사항에서 글 제목을 끌고 오려면 어떻게 해야할까요?
+{% highlight python %}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    
-    #html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
-    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-    #beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
-    bsObject = BeautifulSoup(html, "html.parser")
-    #해당 페이지에서 table 태그 불러오기
-    table = bsObject.find("table")
-    #불러온 table 태그에서 class를 title로 가지고 있는 모든 정보 가져오기
-    titles = table.find_all(class_="title")
-    #불러온 타이틀들에서 각각,
-    for title in titles:
-    		#태그들을 제외한 텍스트만을 가져와라
-    		x = title.get_text()
-    		print (x)
-    		
+#html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
+html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+#beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
+bsObject = BeautifulSoup(html, "html.parser")
+#해당 페이지에서 table 태그 불러오기
+table = bsObject.find("table")
+#불러온 table 태그에서 class를 title로 가지고 있는 모든 정보 가져오기
+titles = table.find_all(class_="title")
+#불러온 타이틀들에서 각각,
+for title in titles:
+    #태그들을 제외한 텍스트만을 가져와라
+    x = title.get_text()
+    print (x)
+{% endhighlight %}
 
 이렇게 하면 쭉 제목만 뽑아 올 수 있습니다. 다만 저희 학교 페이지의 경우 많은 공백이 포함되어 있습니다. 이를 다양한 파이썬 문법을 사용해 해결 할 수 있겠지만, 저의 경우 아래와 같이 하는 것이 가장 깔끔하게 정보를 보여줄 수 있었습니다. 
+{% highlight python %}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    
-    #html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
-    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-    #beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
-    bsObject = BeautifulSoup(html, "html.parser")
-    #해당 페이지에서 table 태그 불러오기
-    table = bsObject.find("table")
-    #불러온 table 태그에서 class를 title로 가지고 있는 모든 정보 가져오기
-    titles = table.find_all(class_="title")
-    #불러온 타이틀들에서 각각,
-    for title in titles:
-    		#태그들을 제외한 텍스트만을 가져와라
-        x = title.get_text()
-        x = x.replace("\t", '')
-        x = x.replace("\n", '')
-        print(x)
-
+#html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
+html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+#beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
+bsObject = BeautifulSoup(html, "html.parser")
+#해당 페이지에서 table 태그 불러오기
+table = bsObject.find("table")
+#불러온 table 태그에서 class를 title로 가지고 있는 모든 정보 가져오기
+titles = table.find_all(class_="title")
+#불러온 타이틀들에서 각각,
+for title in titles:
+    #태그들을 제외한 텍스트만을 가져와라
+    x = title.get_text()
+    x = x.replace("\t", '')
+    x = x.replace("\n", '')
+    print(x)
+{% endhighlight %}
 업그레이드를 조금 더 해보고자 합니다. 해당 공지글 제목과, 공지글의 url을 같이 가져와 보겠습니다. 
+{%highlight python %}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    
-    #html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
-    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-    #beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
-    bsObject = BeautifulSoup(html, "html.parser")
-    #해당 페이지에서 table 태그 불러오기
-    table = bsObject.find("table")
-    #불러온 table 태그에서 class를 title로 가지고 있는 모든 정보 가져오기
-    titles = table.find_all(class_="title")
-    #불러온 타이틀들에서 각각,
-    for title in titles:
-    		#태그들을 제외한 텍스트만을 가져와라
-        x = title.get_text()
-        x = x.replace("\t", '')
-        x = x.replace("\n", '')
-        print(x)
-    		#링크라는 변수를 만들어서, 그 안에 a태그의 href정보를 가져와라
-    		link = title.a.get('href')
-    		#학교 기본 url에 뽑아온 링크를 합쳐라
-    		url = 'http://www.hufs.ac.kr/user/' + link
-    		print(url)
-
+#html이라는 변수를 지정한 후, 거기 안에 특정 url 주소를 입력해준다.
+html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+#beautifulsoup를 이용해서 해당 페이지를 파싱해온다.
+bsObject = BeautifulSoup(html, "html.parser")
+#해당 페이지에서 table 태그 불러오기
+table = bsObject.find("table")
+#불러온 table 태그에서 class를 title로 가지고 있는 모든 정보 가져오기
+titles = table.find_all(class_="title")
+#불러온 타이틀들에서 각각,
+for title in titles:
+    #태그들을 제외한 텍스트만을 가져와라
+    x = title.get_text()
+    x = x.replace("\t", '')
+    x = x.replace("\n", '')
+    print(x)
+        #링크라는 변수를 만들어서, 그 안에 a태그의 href정보를 가져와라
+        link = title.a.get('href')
+        #학교 기본 url에 뽑아온 링크를 합쳐라
+        url = 'http://www.hufs.ac.kr/user/' + link
+        print(url)
+{% endhighlight %}
 이렇게 되면 글 제목 밑에 페이지 url이 나오게 됩니다. 클릭해서 해당 제목을 가진 글로 잘 연결되는지 확인 해보시기 바랍니다.
 
 이제 이걸 Django에서 어떻게 사용할 수 있는지 보여드리겠습니다. 전체 웹을 다시 만들기는 조금 번거로우니 아까 만들었던 워드카운트 앱 about 페이지에 임시로 한번 이식했다가 지워봅시다. 
@@ -511,128 +511,131 @@ urlopen은 말 그대로 특정 url에 접근 가능하게 해주는 기능이�
 먼저 views.py를 켜줍니다.
 
 "about" 아래에 위에 코드를 붙여 넣어줍니다.
+{% highlight python %}
+#views.py
 
-    #views.py
-    
-    def about(request):
-    	from urllib.request import urlopen
-    	from bs4 import BeautifulSoup
-    
-    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-    	bsObject = BeautifulSoup(html, "html.parser")
-    	table = bsObject.find("table")
-    	titles = table.find_all(class_="title")
-    	for title in titles:
-    			x = title.get_text()
-    			x = x.replace("\t", '')
-    			x = x.replace("\n", '')
-    			link = title.a.get('href')
-    			url = 'http://www.hufs.ac.kr/user/' + link
-    	return render(request, 'about.html')
+def about(request):
+    from urllib.request import urlopen
+    from bs4 import BeautifulSoup
 
+    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+    bsObject = BeautifulSoup(html, "html.parser")
+    table = bsObject.find("table")
+    titles = table.find_all(class_="title")
+    for title in titles:
+        x = title.get_text()
+        x = x.replace("\t", '')
+        x = x.replace("\n", '')
+        link = title.a.get('href')
+        url = 'http://www.hufs.ac.kr/user/' + link
+    return render(request, 'about.html')
+{% endhighlight %}
 앞서 Wordcount 에서 Result를 가져온 것과 비슷한 방식으로 해당 페이지도 구성하고자 합니다. 
 
-먼저 Dictionary를 하나 만들어줍니다. 
+먼저 Dictionary를 하나 만들어줍니다.
+{% highlight python %}
+{%raw%}
+#views.py
+{%endraw%}
+def about(request):
+    from urllib.request import urlopen
+    from bs4 import BeautifulSoup
     {%raw%}
-    #views.py
+    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
     {%endraw%}
-    def about(request):
-    	from urllib.request import urlopen
-    	from bs4 import BeautifulSoup
-        {%raw%}
-    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-        {%endraw%}
-    	bsObject = BeautifulSoup(html, "html.parser")
-    	table = bsObject.find("table")
-    	titles = table.find_all(class_="title")
-    	#딕셔너리 만들기
-    	notices = {%raw%}{}{%endraw%}
-    	for title in titles:
-    			x = title.get_text()
-    			x = x.replace("\t", '')
-    			x = x.replace("\n", '')
-    			link = title.a.get('href')
-    			url = 'http://www.hufs.ac.kr/user/' + link
-    	return render(request, 'about.html')
-
+    bsObject = BeautifulSoup(html, "html.parser")
+    table = bsObject.find("table")
+    titles = table.find_all(class_="title")
+    #딕셔너리 만들기
+    notices = {%raw%}{}{%endraw%}
+    for title in titles:
+        x = title.get_text()
+        x = x.replace("\t", '')
+        x = x.replace("\n", '')
+        link = title.a.get('href')
+        url = 'http://www.hufs.ac.kr/user/' + link
+    return render(request, 'about.html')
+{% endhighlight %}
 그리고 이제 학교 공지글의 제목을 Key에, 해당 공지글 링크를 Value에 넣어봅시다. 
+{% highlight python %}
+#views.py
 
-    #views.py
-    
-    def about(request):
-    	from urllib.request import urlopen
-    	from bs4 import BeautifulSoup
-    {%raw%}
-    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right"){%endraw%}
-    	bsObject = BeautifulSoup(html, "html.parser")
-    	table = bsObject.find("table")
-    	titles = table.find_all(class_="title")
-    	notices = {%raw%}{}{%endraw%}
-    	for title in titles:
-    			x = title.get_text()
-    			x = x.replace("\t", '')
-    			x = x.replace("\n", '')
-    			link = title.a.get('href')
-    			url = 'http://www.hufs.ac.kr/user/' + link
-    			#딕셔너리에 자료 추가
-    			notices[x] = url
-    	return render(request, 'about.html')
-
+def about(request):
+    from urllib.request import urlopen
+    from bs4 import BeautifulSoup
+{%raw%}
+    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right"){%endraw%}
+    bsObject = BeautifulSoup(html, "html.parser")
+    table = bsObject.find("table")
+    titles = table.find_all(class_="title")
+    notices = {%raw%}{}{%endraw%}
+    for title in titles:
+        x = title.get_text()
+        x = x.replace("\t", '')
+        x = x.replace("\n", '')
+        link = title.a.get('href')
+        url = 'http://www.hufs.ac.kr/user/' + link
+        #딕셔너리에 자료 추가
+        notices[x] = url
+    return render(request, 'about.html')
+{% endhighlight %}
 마지막으로 해당 딕셔너리를 Templates로 넘겨줍니다.
+{% highlight python %}
+#views.py
 
-    #views.py
-    
-    def about(request):
-    	from urllib.request import urlopen
-    	from bs4 import BeautifulSoup
-        {%raw%}
-    	html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
-       {%endraw%}   
-    	bsObject = BeautifulSoup(html, "html.parser")
-    	table = bsObject.find("table")
-    	titles = table.find_all(class_="title")
-    	notices = {%raw%}{}{%endraw%}
-    	for title in titles:
-    			x = title.get_text()
-    			x = x.replace("\t", '')
-    			x = x.replace("\n", '')
-    			link = title.a.get('href')
-    			url = 'http://www.hufs.ac.kr/user/' + link
-    			notices[x] = url
-    	#Templates로 가져가기
-    	return render(request, 'about.html', {'notices': notices.items()})
-
-자 이제 about.html 파일로 갑니다. 
-
-    <!-- about.html -->
-    <h1> About Wordcount </h1>
+def about(request):
+    from urllib.request import urlopen
+    from bs4 import BeautifulSoup
     {%raw%}
-    {% for title, link in notices%}
-    {{title}} - {{link}}
-    {%endfor%}
-    {%endraw%}
+    html = urlopen("http://builder.hufs.ac.kr/user/indexSub.action?codyMenuSeq=37080&siteId=hufs&menuType=T&uId=4&sortChar=AB&linkUrl=04_0202.html&mainFrame=right")
+   {%endraw%}   
+    bsObject = BeautifulSoup(html, "html.parser")
+    table = bsObject.find("table")
+    titles = table.find_all(class_="title")
+    notices = {%raw%}{}{%endraw%}
+    for title in titles:
+        x = title.get_text()
+        x = x.replace("\t", '')
+        x = x.replace("\n", '')
+        link = title.a.get('href')
+        url = 'http://www.hufs.ac.kr/user/' + link
+        notices[x] = url
+    #Templates로 가져가기
+    return render(request, 'about.html', {'notices': notices.items()})
+{% endhighlight %}
+자 이제 about.html 파일로 갑니다. 
+{% highlight html %}
+<!-- about.html -->
+<h1> About Wordcount </h1>
+{%raw%}
+{% for title, link in notices%}
+{{title}} - {{link}}
+{%endfor%}
+{%endraw%}
+{% endhighlight %}
 이렇게 입력해 준 후, 서버를 키고 about 페이지에 접속해 봅니다.
 
 이런식으로 나오면 성공적으로 잘 하신 겁니다.
 
 다만, 이렇게 되면 가독성도 떨어지고 글로 찾아가기도 어려우니 직접 링크를 만들어서 달아보도록 하겠습니다.
-
-    <!-- about.html -->
-    <h1> About Wordcount </h1>
-    {%raw%}
-    {% for title, link in notices%}
-    {{title}} <a href="{{link}}">글 보기</a>
-    <br>
-    {%endfor%}
-    {%endraw%}   
-    {%raw%}
-    <!-- about.html -->
-    <h1> About Wordcount </h1>
-    {% for title, link in notices%}
-    <a href="{{link}}">{{title}}</a>
-    <br>
-    {%endfor%}
-    {%endraw%} 
+{% highlight html %}
+<!-- about.html -->
+<h1> About Wordcount </h1>
+{%raw%}
+{% for title, link in notices%}
+{{title}} <a href="{{link}}">글 보기</a>
+<br>
+{%endfor%}
+{%endraw%}   
+{%raw%}
+<!-- about.html -->
+<h1> About Wordcount </h1>
+{% for title, link in notices%}
+<a href="{{link}}">{{title}}</a>
+<br>
+{%endfor%}
+{%endraw%} 
+{% endhighlight %}
 위에 두 방법 중 더 마음에 드시는 방법으로 사용하시면 되겠습니다. 
 
 이렇게 BeautifulSoup을 이용한 파싱의 기본을 배워보았습니다.
