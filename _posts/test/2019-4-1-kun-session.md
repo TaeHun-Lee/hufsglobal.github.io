@@ -263,78 +263,79 @@ urlpatterns = [
 이렇게 바꿔주면 됩니다. 그러나 이렇게만 해서는 기능이 작동되지 않습니다. 앞서 말했던 것 처럼 result 페이지는 단순히 어떠한 페이지를 보여주는 home, about과는 다르게 그때그때 입력된 값에 따라 다른 결과를 보여줘야 합니다. 
 
 그래서 Count! 버튼을 누르면 form 태그 안에서 작성된 textarea의 값을 함께 가지고 result.html로 넘어갈 수 있게끔 코드를 추가해줘야 합니다. 
+{% highlight python %}
+#views.py
+def result(request):
+        input_text = request.GET['fulltext']
+        return render(request, 'result.html', {%raw%}{'fulltext': input_text}{%endraw%})
 
-    #views.py
-    def result(request):
-    		input_text = request.GET['fulltext']
-    		return render(request, 'result.html', {%raw%}{'fulltext': input_text}{%endraw%})
-
-    input_text = request.GET['fulltext']
+input_text = request.GET['fulltext']
+{% endhighlight %}
 
 위 코드는 form 태그가 보내는 "fulltext"라는 이름을 가진 값을 input_text라는 이름을 가진 변수에 넣겠다는 뜻 입니다. 
-
-    return render(request, 'wordcount/result.html', {%raw%}{'inputtext': input_text}{%endraw%})
-
+{% highlight python %}
+return render(request, 'wordcount/result.html', {%raw%}{'inputtext': input_text}{%endraw%})
+{% endhighlight %}
 가장 뒤에 추가된 부분은 result.html에서 inputtext라는 이름을 통해 input_text에 들어있는 변수를 불러 오겠다는 것입니다. 
 
 이제 그 결과를 result.html 페이지에 띄울 차례 입니다. 
+{% highlight html %}
+<h1> Result </h1>
 
-    <h1> Result </h1>
-    
-    <h3> 당신이 입력한 텍스트는 <!--총 단어수 --> 단어로 구성되어 있습니다. </h3>
-    <br>
-    <h3> 입력한 텍스트 </h3>
-    {%raw%}{{ inputtext }}{%endraw%}
-    <br>
-    <h3> 단어 카운트 <h3>
-    <!-- '단어' : '단어 나온 횟수' -->
-
+<h3> 당신이 입력한 텍스트는 <!--총 단어수 --> 단어로 구성되어 있습니다. </h3>
+<br>
+<h3> 입력한 텍스트 </h3>
+{%raw%}{{ inputtext }}{%endraw%}
+<br>
+<h3> 단어 카운트 <h3>
+<!-- '단어' : '단어 나온 횟수' -->
+{% endhighlight %}
 이 때 {%raw%}{{ }}{%endraw%} 는 {%raw%}{% %}{%endraw%}와 달리 django를 통해 넘겨받은 데이터를 출력할 때 사용하는 코드입니다. 
 
 ### 05-3. Count 함수 기능 추가하기
 
 가장 먼저 총 단어 수를 보여주는 기능을 추가해 보겠습니다. 
+{% highlight python %}
+#views.py
+    
+def result(request):
+        input_text = request.GET['fulltext']
 
-    #views.py
-    
-    def result(request):
-    		input_text = request.GET['fulltext']
-    
-    		word_list = input_text.split() # input_text 변수 속에 있는 글을 띄어쓰기 기준으로 쪼개는 기능
-    
-    		return render(request, 'result.html', {%raw%}{'fulltext': input_text, 'total': len(word_list)}){%endraw%}
-    		#total 이라는 변수에 word_list의 길이를 넣을 것이다. 
+        word_list = input_text.split() # input_text 변수 속에 있는 글을 띄어쓰기 기준으로 쪼개는 기능
 
+        return render(request, 'result.html', {%raw%}{'fulltext': input_text, 'total': len(word_list)}){%endraw%}
+        #total 이라는 변수에 word_list의 길이를 넣을 것이다. 
+{% endhighlight %}
 이제 result 페이지에 이 값을 보여주면 되겠죠?
+{% highlight html %}
+<!-- result.html --> 
 
-    <!-- result.html --> 
-    
-    <h1> Result </h1>
-    
-    <h3> 당신이 입력한 텍스트는 {%raw%}{{total}} {%endraw%}단어로 구성되어 있습니다. </h3>
-    ...
+<h1> Result </h1>
 
+<h3> 당신이 입력한 텍스트는 {%raw%}{{total}} {%endraw%}단어로 구성되어 있습니다. </h3>
+...
+{% endhighlight %}
 이제 각 단어별로 몇번 반복 되었는지 세는 기능을 만들어 보겠습니다. 
+{% highlight python %}
+#views.py
 
-    #views.py
-    
-    def result(request):
-    
-    		input_text = request.GET['fulltext']
-    
-    		word_list = input_text.split()
-    
-    		word_dictionary = {%raw%}{}{%endraw%}
-    
-    		for word in word_list:
-    				if word in word_dictionary:
-    				word_dicrtionary[word] += 1
-    				else:
-    				word_dictionary[word] = 1
-    
-    		return render(request, 'result.html', {%raw%}{'inputtext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()}){%endraw%}
+def result(request):
+
+        input_text = request.GET['fulltext']
+
+        word_list = input_text.split()
+
+        word_dictionary = {%raw%}{}{%endraw%}
+
+        for word in word_list:
+                if word in word_dictionary:
+                word_dicrtionary[word] += 1
+                else:
+                word_dictionary[word] = 1
+
+        return render(request, 'result.html', {%raw%}{'inputtext': input_text, 'total': len(word_list), 'dictionary': word_dictionary.items()}){%endraw%}
     		
-
+{% endhighlight %}
 코드를 차근차근 설명하자면,
 
     word_dictionary = {%raw%}{}{%endraw%}
