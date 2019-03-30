@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 템플릿 상속 및 url 관리.
+title: 08. 템플릿 상속 및 url 관리.
 category: test
 ---
 정규 세션 8 - prod. 승윤
 
-# 템플릿 상속 및 url 관리. 
+# 08. 템플릿 상속 및 url 관리. 
 ---
 
 [예제 파일](https://github.com/seungyuns/newbitonproject/files/3023906/postproject.zip)
