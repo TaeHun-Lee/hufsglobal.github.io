@@ -233,5 +233,5 @@ path('blog/', include('blogapp.urls')),
 
 # PPT참고
 
-[인공지능으로 작곡하기.pdf](https://github.com/seungyuns/newbitonproject/files/3025735/8th_Session_PPT.pdf)
+[템플릿 상속 및 url 관리하기.pdf](https://github.com/seungyuns/newbitonproject/files/3025735/8th_Session_PPT.pdf)
 
