@@ -119,7 +119,7 @@ TEMPLATES = [
 
 * 먼저 간단하게 메뉴바 brand를 이름으로 바꾸고 간단하게 글짜 굵기, 크기, 색을 넣겠습니다, 링크도 home 페이지로 걸어두겠습니다..
 {% highlight html %}
-<a class="navbar-brand" href="{%url 'home'%}" style="font-weight: 600; font-size:25px; color:orange; ">SeungYun</a>
+<a class="navbar-brand" href="{%raw%}{%url 'home'%}{%endraw%}" style="font-weight: 600; font-size:25px; color:orange; ">SeungYun</a>
 {% endhighlight %}
 
 * 다음 간단하게 부트스트랩 card 목록에서 components를 가져와서 홈페이지 게시글을 담아주겠습니다. for문 밑에 바로 삽입.
@@ -137,17 +137,17 @@ TEMPLATES = [
 <div class="container">
     <div class="card" >
         <div class="card-body">
-        <a href="{% url 'detail' blog.id %}"> <h5 class="card-title">{{ blog.title }}</h5></a>
+        <a href="{%raw%}{% url 'detail' blog.id %}{%endraw%}"> <h5 class="card-title">{{ blog.title }}</h5></a>
         <h6 class="card-subtitle mb-2 text-muted">{{ blog.pub_date }}</h6>
         <p class="card-text">{{ blog.body }}</p>
-        <a href="{% url 'delete' blog.id%}" class="card-link"> 삭제하기 </a>
-        <a href="{% url 'update' blog.id%}" class="card-link"> 수정하기 </a>
+        <a href="{%raw%}{% url 'delete' blog.id%}{%endraw%}" class="card-link"> 삭제하기 </a>
+        <a href="{%raw%}{% url 'update' blog.id%}{%endraw%}" class="card-link"> 수정하기 </a>
         </div>
     </div>
 </div>
 {%raw%}{% endfor %}{%endraw%}
 <div class="container">
-<button type="button" class="btn btn-dark"><a href="{% url 'new' %}"  style="color:white;" > new post </a></button>
+<button type="button" class="btn btn-dark"><a href="{%raw%}{% url 'new' %}{%endraw%}"  style="color:white;" > new post </a></button>
 </div>
 {%raw%}{% endblock%}{%endraw%}
 {%raw%}{% endhighlight %}{%endraw%}
@@ -166,8 +166,8 @@ TEMPLATES = [
         <h5 class="card-title">{{details.title}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{details.pub_date}}</h6>
         <p class="card-text">{{details.body}}</p>
-        <a href="{% url 'delete' details.id%}" class="card-link"> 삭제하기 </a>
-        <a href="{% url 'update' details.id%}" class="card-link"> 수정하기 </a>
+        <a href="{%raw%}{% url 'delete' details.id%}{%endraw%}" class="card-link"> 삭제하기 </a>
+        <a href="{%raw%}{% url 'update' details.id%}{%endraw%}" class="card-link"> 수정하기 </a>
         </div>
     </div>
 </div>
