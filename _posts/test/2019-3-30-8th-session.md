@@ -182,7 +182,7 @@ TEMPLATES = [
 <div class="container">
 <div class="container">
     <form action="{%raw%}{% url 'create' %}{%endraw%}" method="POST">
-    {% csrf_token%} 
+    {%raw%}{% csrf_token%}{%endraw%} 
     <h4>제목: </h4>
     <input type="text" name="title">
     <br>
