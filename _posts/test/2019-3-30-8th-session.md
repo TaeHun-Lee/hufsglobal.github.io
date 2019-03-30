@@ -101,15 +101,15 @@ TEMPLATES = [
 
 * 이제 우리 blog홈페이지에서 저희가 만든 공통 html 파일을 불러올건데요, home.html 상단에 태그를 통해서 base.html을 불러오도록 하겠습니다.
 {% highlight html %}
-  {% extends 'base.html' %}
+  {%raw%}{% extends 'base.html' %}{%endraw%}
 {% endhighlight %}
 
 * 그리고 이전에 base.html 에 block 태그로 나타날 내용을 명시해 준 듯이, 그 명시한 내용이 현재 페이지의 내용이라는 것을 명시해주기 위해,  block태그로 home.html 요소들을 묶어주도록 하겠습니다.
 
 {% highlight html %}
-{% block contents %}
+{%raw%}{% block contents %}{%endraw%}
  // html. 내용
-{% endblock%}
+{%raw%}{% endblock%}{%endraw%}
 {% endhighlight %}
 
 
@@ -129,10 +129,10 @@ TEMPLATES = [
 * 게시글을 중앙으로 옮기기 위해 div container로 한번 더 감싸주고, card class의 style에 있는 넓이 속성을 제거해주도록 하겠습니다. 위에 공백하나도 널어주기.
 
 * new post 버튼도 부트스트랩 button component를 가져와서 넣어보도록 하고, 글씨가 잘 안보이니 글자색을 white로 변경하겠습니다.
-{% highlight html %}
-{% extends 'base.html' %}
-{% block contents %}
-{% for blog in blogs.all %}
+{%raw%}{% highlight html %}{%endraw%}
+{%raw%}{% extends 'base.html' %}{%endraw%}
+{%raw%}{% block contents %}{%endraw%}
+{%raw%}{% for blog in blogs.all %}{%endraw%}
 <br>
 <div class="container">
     <div class="card" >
@@ -145,20 +145,20 @@ TEMPLATES = [
         </div>
     </div>
 </div>
-{% endfor %}
+{%raw%}{% endfor %}{%endraw%}
 <div class="container">
 <button type="button" class="btn btn-dark"><a href="{% url 'new' %}"  style="color:white;" > new post </a></button>
 </div>
-{% endblock%}
-{% endhighlight %}
+{%raw%}{% endblock%}{%endraw%}
+{%raw%}{% endhighlight %}{%endraw%}
 
 
 * 이제 얼추 게시판 모양이 나타났습니다. 하지만, 아직 저희가 detail, update, new 페이지는 템플릿 상속을 안해주었기 때문에, 템플릿을 마저 상속시키도록 하겠습니다. 
 
 * detail 페이지, home페이지 그대로 긁어오고, blog 인자 details로 바꿔주기. for문 end 문 지우기.
-{% highlight html %}
-{% extends 'base.html' %}
-{% block contents %}
+{%raw%}{% highlight html %}{%endraw%}
+{%raw%}{% extends 'base.html' %}{%endraw%}
+{%raw%}{% block contents %}{%endraw%}
 <br>
 <div class="container">
     <div class="card" >
@@ -171,13 +171,13 @@ TEMPLATES = [
         </div>
     </div>
 </div>
-{%endblock%}
-{% endhighlight %}
+{%raw%}{%endblock%}{%endraw%}
+{%raw%}{% endhighlight %}{%endraw%}
 
 * 새글쓰기 창, base.html 불러오기, block contents 감싸주기, <br>한칸 뛰고, div class=container 로 한번 더 감싸주기.
-{% highlight html %}
-{% extends 'base.html' %}
-{% block contents %}
+{%raw%}{% highlight html %}{%endraw%}
+{%raw%}{% extends 'base.html' %}{%endraw%}
+{%raw%}{% block contents %}{%endraw%}
 <br>
 <div class="container">
 <div class="container">
@@ -195,8 +195,8 @@ TEMPLATES = [
 </form>
 </div>
 </div>
-{%endblock%}
-{% endhighlight %}
+{%raw%}{%endblock%}{%endraw%}
+{%raw%}{% endhighlight %}{%endraw%}
 
 * update창, base.html 불러오기, block contents 감싸주기, <br>한칸 뛰고, 수정페이지 h태그 div 안으로 옮겨주기. 글자 스타일 바꿔주기. 
 
@@ -223,9 +223,9 @@ TEMPLATES = [
 * 이제 blogapp url파일을 프로젝트 url파일로 끌어올건데요, 이러한 과정을 도와줄 기능이 바로 django.urls에 있는 include 입니다. 프로젝트폴더 url파일에서 path와 함께 include를 임포트 해오도록 하겠습니다.
 
 * 마지막으로, blogapp 폴더의 urls파일을 프로젝트폴더로 끌고오기 위해 경로를 추가해주도록 하겠습니다. 
-{% highlight html %}
+{%raw%}{% highlight html %}{%endraw%}
 path('blog/', include('blogapp.urls')),
-{% endhighlight %}
+{%raw%}{% endhighlight %}{%endraw%}
 * 코드를 보시면 어느정도 느낌이 오실텐데, blogapp폴더의 urls 파일을 불러오고 그 url의 형식은 blog/ ... 뭐뭐뭐 로 하겠다 라는 의미 입니다.
 
 * 이렇게 url을 각자의 app에서 관리한다면, 프로젝트가 커져도 효율적이고 체계적으로 url을 관리하실 수 있습니다.
