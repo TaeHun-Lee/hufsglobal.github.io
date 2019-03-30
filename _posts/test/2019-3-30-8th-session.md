@@ -95,8 +95,8 @@ TEMPLATES = [
 * base.html에 공통으로 들어갈 코드를 작성하고 나면, 개별적인 페이지 코드들이 들어갈 부분들을 명시해 줘야하는데요, 우리는 blog 글들을 메뉴바의 밑에 표시할 것이기 때문에, 메뉴바 밑에 자리를 명시하도록 하겠습니다.
 
 {% highlight html %}
-  {%block contents%}
-  {%endblock%}
+  {%raw%}{%block contents%}{%endraw%}
+  {%raw%}{%endblock%}{%endraw%}
 {% endhighlight %}
 
 * 이제 우리 blog홈페이지에서 저희가 만든 공통 html 파일을 불러올건데요, home.html 상단에 태그를 통해서 base.html을 불러오도록 하겠습니다.
