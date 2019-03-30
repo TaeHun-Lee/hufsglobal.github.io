@@ -129,7 +129,8 @@ TEMPLATES = [
 * 게시글을 중앙으로 옮기기 위해 div container로 한번 더 감싸주고, card class의 style에 있는 넓이 속성을 제거해주도록 하겠습니다. 위에 공백하나도 널어주기.
 
 * new post 버튼도 부트스트랩 button component를 가져와서 넣어보도록 하고, 글씨가 잘 안보이니 글자색을 white로 변경하겠습니다.
-{%raw%}{% highlight html %}{%endraw%}
+
+{% highlight html %}
 {%raw%}{% extends 'base.html' %}{%endraw%}
 {%raw%}{% block contents %}{%endraw%}
 {%raw%}{% for blog in blogs.all %}{%endraw%}
@@ -150,13 +151,13 @@ TEMPLATES = [
 <button type="button" class="btn btn-dark"><a href="{%raw%}{% url 'new' %}{%endraw%}"  style="color:white;" > new post </a></button>
 </div>
 {%raw%}{% endblock%}{%endraw%}
-{%raw%}{% endhighlight %}{%endraw%}
+{% endhighlight %}
 
 
 * 이제 얼추 게시판 모양이 나타났습니다. 하지만, 아직 저희가 detail, update, new 페이지는 템플릿 상속을 안해주었기 때문에, 템플릿을 마저 상속시키도록 하겠습니다. 
 
 * detail 페이지, home페이지 그대로 긁어오고, blog 인자 details로 바꿔주기. for문 end 문 지우기.
-{%raw%}{% highlight html %}{%endraw%}
+{% highlight html %}
 {%raw%}{% extends 'base.html' %}{%endraw%}
 {%raw%}{% block contents %}{%endraw%}
 <br>
@@ -172,10 +173,10 @@ TEMPLATES = [
     </div>
 </div>
 {%raw%}{%endblock%}{%endraw%}
-{%raw%}{% endhighlight %}{%endraw%}
+{% endhighlight %}
 
 * 새글쓰기 창, base.html 불러오기, block contents 감싸주기, <br>한칸 뛰고, div class=container 로 한번 더 감싸주기.
-{%raw%}{% highlight html %}{%endraw%}
+{% highlight html %}
 {%raw%}{% extends 'base.html' %}{%endraw%}
 {%raw%}{% block contents %}{%endraw%}
 <br>
@@ -195,8 +196,7 @@ TEMPLATES = [
 </form>
 </div>
 </div>
-{%raw%}{%endblock%}{%endraw%}
-{%raw%}{% endhighlight %}{%endraw%}
+{%raw%}{%endblock%}{%endraw%}{% endhighlight %}
 
 * update창, base.html 불러오기, block contents 감싸주기, <br>한칸 뛰고, 수정페이지 h태그 div 안으로 옮겨주기. 글자 스타일 바꿔주기. 
 
@@ -223,9 +223,9 @@ TEMPLATES = [
 * 이제 blogapp url파일을 프로젝트 url파일로 끌어올건데요, 이러한 과정을 도와줄 기능이 바로 django.urls에 있는 include 입니다. 프로젝트폴더 url파일에서 path와 함께 include를 임포트 해오도록 하겠습니다.
 
 * 마지막으로, blogapp 폴더의 urls파일을 프로젝트폴더로 끌고오기 위해 경로를 추가해주도록 하겠습니다. 
-{%raw%}{% highlight html %}{%endraw%}
+{% highlight html %}
 path('blog/', include('blogapp.urls')),
-{%raw%}{% endhighlight %}{%endraw%}
+{% endhighlight %}
 * 코드를 보시면 어느정도 느낌이 오실텐데, blogapp폴더의 urls 파일을 불러오고 그 url의 형식은 blog/ ... 뭐뭐뭐 로 하겠다 라는 의미 입니다.
 
 * 이렇게 url을 각자의 app에서 관리한다면, 프로젝트가 커져도 효율적이고 체계적으로 url을 관리하실 수 있습니다.
