@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 ]
 ```
 * 이제 templates 폴더를 App의 하위 폴더에 생성해줍시다.
-![템플릿폴더][templates_make.png]
+![템플릿폴더][https://user-images.githubusercontent.com/46686577/55426293-626dfa80-55bf-11e9-90aa-007644d0ec36.png]
 * templates 폴더 내부에 총 4개의 html 파일을 작성해줍시다. 이번 CR 복습에서는 템플릿 상속 기능을 활용해 볼 것이므로 기존의 3개에 base.html을 추가로 작성해줍니다.
 **따라서 base.html, home.html, detail.html, new.html 총 4개의 파일을 생성해 줍니다.**
 
@@ -89,7 +89,7 @@ urlpatterns = [
 ```
 
 * 이렇게가 base.html에서 작성해야하는 코드입니다. 코드가 길다고 무서워하지 마세요. head 태그 내부 부분은 단순히 부트스트랩 CDN을 끌어온 부분입니다.
-![부트스트랩 CDN][bootstrap_cdn.png]
+![부트스트랩 CDN](https://user-images.githubusercontent.com/46686577/55426282-613ccd80-55bf-11e9-90e6-67d9d2a05744.png)
 
 * body 내부의 nav 태그 부분은 부트스트랩의 컴포넌트 중 하나인 네비게이션 바를 적용시킨 겁니다. 이 부분은 부트스트랩의 Documentation에서 기술한 코드가 조금 너무 무거워보여서 제가 미니미하게 수정한 것이므로 편하신 분은 부트스트랩의 정규 예시 코드를 사용하셔도 좋습니다.
 
@@ -119,7 +119,7 @@ urlpatterns = [
 ```python
 	python manage.py runserver
 ```
-![초기 게시판][init_board.png]
+![초기 게시판][https://user-images.githubusercontent.com/46686577/55426284-613ccd80-55bf-11e9-8037-c71fbdb2110a.png]
 
 * 이 화면이 뜨고 계신다면 잘 하고 계신 겁니다. 이제 조금 더 깊숙한 부분으로 들어가 봅시다. models.py, 즉 DB에 등록할 데이터 형태를 주물러 볼 겁니다.
 
@@ -156,7 +156,7 @@ class Posting(models.Model):
 ```
 
 * 실제로 App 내부를 확인해보시면 migrations 폴더 내에 테이블이 생긴 것을 확인하실 수 있을 겁니다.
-![마이그레이션폴더][migrations.png]
+![마이그레이션폴더][https://user-images.githubusercontent.com/46686577/55426286-613ccd80-55bf-11e9-909b-e563c87e0092.png]
 
 * 이제 우리가 해당 모델 데이터를 admin 레벨에서 관리할 수 있도록 admin.py에 모델을 등록하고 admin 계정을 생성해서 실제로 DB에 우리가 등록한 모델로 테이블이 만들어 졌는지 확인해봅시다.
 
@@ -181,7 +181,7 @@ admin.site.register(Posting)
 > 주소 뒤에 /admin/을 입력해서 admin 페이지에 들어갑니다.
 > admin 계정으로 로그인 해주면 다음과 같이 나와야 합니다.
 
-![어드민][admin.png]
+![어드민][https://user-images.githubusercontent.com/46686577/55426296-63069100-55bf-11e9-8a02-b653168db49f.png]
 
 * 모델이 등록된 것을 확인했으니 views.py에서 DB에 등록된 객체들을 실제로 템플릿에 뿌려줄 수 있도록 함수를 작성해 봅시다. 일단 만들어 둔 모델을 views.py로 끌어와야 합니다. 다음과 같이 코드를 작성해봅시다.
 ```python
@@ -215,7 +215,7 @@ def home(request):
 ```
 
 * 이제 admin 페이지에서 Posting 객체를 하나 만들어 본 뒤 로컬 서버를 작동시켜 home.html에 제대로 뿌려지고 있는지 확인해봅시다. 다음과 같이 나오면 잘 하신 겁니다.
-![첫글][Fisrt_Cr.png]
+![첫글][https://user-images.githubusercontent.com/46686577/55426283-613ccd80-55bf-11e9-85f9-653ed65933f2.png]
 
 * 이제 본격적으로 CR에 들어가봅시다. CR 중 Create부터 해볼 겁니다. 새로 '글을 쓰겠다'라는 요청(request)가 들어오면 views.py에서 새로운 DB 객체(세션 코드 기준으로 Posting 객체)를 만들어 반환하는 형태로 구성해봅시다.
 
@@ -373,7 +373,7 @@ def detail(request, post_id):
 * 이제 본격적으로 장고에서 어떻게 이미지, 동영상, CSS, JS 등을 관리하고 화면에 띄워주는 지에 대해서 알아봅시다. 이러한 파일들을 장고에서는 두가지 종류로 구분하여 관리합니다. 첫번째는 서버 관리자가 미리 서버에 올려두는 파일, 두번째는 사이트 이용자가 올리는 파일입니다. 첫번째를 Static이라고 하고, 두번째를 Media라고 합니다.
 
 * 쉽게 예를 들어 볼까요? 네이버에 들어가 봅시다. 네이버에 들어갔을 때 보이는 네이버 로고 이미지는 Static입니다. 그리고 우리가 블로그에 글을 작성할 때 넣는 이미지는 Media입니다.
-![네이버 로고][naver_logo.png]
+![네이버 로고][https://user-images.githubusercontent.com/46686577/55426287-61d56400-55bf-11e9-8861-7254241f2208.png]
 
 * 더불어 Static 파일과 Media 파일의 가장 큰 차이점은 모델에 귀속되느냐 그렇지 않느냐가 있겠네요. Static은 서버에 바로 귀속되지만 Media 파일은 모델을 통해 DB에 귀속됩니다.
  
@@ -426,7 +426,7 @@ STATICFILES_FINDERS = (
 ### 이제 실제로 Static 이미지를 넣어서 home.html에 띄워볼까요?
 
 * 저는 제가 10년 동안 애청 중인 게임 스트리머인 '우왁굳'의 사진을 넣어볼 예정입니다. 넣을 사진은 임의대로 구해주세요. 제가 구한 사진은 다음과 같이 생겼습니다.
-![왁두][wakdoo.png]
+![왁두][https://user-images.githubusercontent.com/46686577/55426295-63069100-55bf-11e9-8307-2c256f8fb0dd.png]
 
 *  이제 App 안에 static이라는 폴더를 만들고 그 안에 img라는 폴더를 만들어 그 폴더 안에다가 우리의 이미지를 넣어줍시다.
 
@@ -435,7 +435,7 @@ STATICFILES_FINDERS = (
 * 지금은 이미지 파일만 넣지만 우리는 static으로 다룰 것들이 많습니다, 대표적으로는 CSS와 JS가 있겠죠. 이런 파일들은 카테고리가 명확하기 때문에 따로 폴더를 두어 관리하는 것이 유지보수에 유리합니다. 따라서 미리 연습한다고 생각해주세요.
 
 * 다음과 같이 폴더 계층을 만들어주시면 됩니다.
-![폴더계층][static_folder.png]
+![폴더계층][https://user-images.githubusercontent.com/46686577/55426292-626dfa80-55bf-11e9-9fa5-5d270e703557.png]
 
 * css 폴더는 이해를 돕기 위해 제가 임의로 추가한 것이니 굳이 신경쓰지 않으셔도 좋습니다.
 
@@ -466,7 +466,7 @@ STATICFILES_FINDERS = (
 {% endblock %}
 ```
 * 이제 로컬 서버를 실행하여 home.html을 확인해주세요. 다음과 같이 나오면 성공한 것입니다.
-![스태틱체크][static_check.png]
+![스태틱체크][https://user-images.githubusercontent.com/46686577/55426290-626dfa80-55bf-11e9-955c-8e6aa70cfd2b.png]
 
 **저는 안뜨는데요?!**
 * 혹시 이미지 파일늘 넣고 collectstatic을 하셨는지 확인해주세요. 실제 최상위폴더 밑에 있는 static/img/ 경로에 이미지 파일이 있어야합니다.
@@ -539,7 +539,7 @@ class Posting(models.Model):
 
 **"뭘 설치하라는데요?"**
 * 현재 장고에서 지원하는 ImageField는 규격화된 이미지 처리를 위해 Pillow를 사용하고 있습니다. 설치하라니까 설치 해야지요. ```pip install Pillow```를 터미널에 입력해서 설치해줍시다.
-![필로우에러][pillow_error.png]
+![필로우에러][https://user-images.githubusercontent.com/46686577/55426288-61d56400-55bf-11e9-988c-e5c464c63b19.png]
 
 **"자꾸 모델/DB 관련해서 오류가 떠요!"**
 
@@ -548,7 +548,7 @@ class Posting(models.Model):
 **_모델, DB 관련해서 오류가 뜬다면 migrations 폴더 안에 init.py 파일을 빼고 모두 삭제해주세요. 그리고 최상위 폴더의 db.sqlite3 파일도 삭제해주세요. 그 다음 터미널에서 다시 ```python manage.py makemigrations``` ```python manage.py migrate``` 해주세요. 이게 훨씬 마음 편할 상황이 많으실 겁니다._**
 
 * 이제 admin 사이트에 admin 계정으로 접속하신 뒤 Posting 테이블에서 이미지 파일이 업로드 가능하신 걸 확인하실 수 있으실 겁니다.
-![어드민이미지업로드][admin_image_upload.png]
+![어드민이미지업로드][https://user-images.githubusercontent.com/46686577/55426298-639f2780-55bf-11e9-9b7f-62a54d3c00e2.png]
 
 * 이렇게 업로드한 Media 파일을 home.html에서 한번 불러와 볼까요? home.html에서 다음과 같이 추가해주세요.
 ```html
@@ -697,7 +697,7 @@ class Posting(models.Model):
 	<img  src="{{ posting.image_thumnail.url }}">
 ```
 * 이제 로컬 서버를 켜서 실제로 썸네일 이미지가 잘 나오고 있는지 확인해줍시다. 다음과 같이 나오면 성공하신 겁니다!
-![썸네일테스트][Thumbnail_test.png]
+![썸네일테스트][https://user-images.githubusercontent.com/46686577/55426294-63069100-55bf-11e9-9a72-5285786b2b08.png]
 
 <blockquote>
 이상 이번 9번째 세션을 마무리하도록 하겠습니다.
